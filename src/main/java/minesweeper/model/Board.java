@@ -6,16 +6,20 @@ public class Board {
 
     private final int lenght = 9;
 
-    private final int countMines = 10;
+    private int countMines;
 
     public Board() {
         board = new char[lenght][lenght];
         fillDefault();
-        randomMines();
     }
 
     public int getSize() {
         return lenght;
+    }
+
+    public void setCountMines(int countMines) {
+        this.countMines = countMines;
+        randomMines();
     }
 
     public char[][] getBoard() {
