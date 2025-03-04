@@ -25,6 +25,8 @@ public class BoardTest {
         board.setMine(new int[]{5,8});
         board.setMine(new int[]{6,1});
         board.setMine(new int[]{8,8});
+
+        board.fill();
     }
 
     @Test
@@ -61,6 +63,24 @@ public class BoardTest {
         assertEquals(board.getCountMinesNearbyPos(new int[]{0,2}), 1);
         assertEquals(board.getCountMinesNearbyPos(new int[]{8,9}), 1);
         assertEquals(board.getCountMinesNearbyPos(new int[]{8,7}), 2);
+    }
+
+    @Test
+    void tesStartBoard() {
+        String expectedBoard =
+                "1X1..12X1.\n" +
+                "111112X21.\n" +
+                "...2X421..\n" +
+                "...2XX2...\n" +
+                "...13X2...\n" +
+                "....111...\n" +
+                "......111.\n" +
+                "....112X21\n" +
+                "....1X22X1\n" +
+                "....111111";
+
+        assertEquals(expectedBoard, board.boardToString());
+
     }
 
 }

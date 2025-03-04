@@ -20,6 +20,7 @@ public class Board {
 
     public void fill() {
         randomMines();
+        setNearbyMines();
 //        getNearbyMines();
     }
 
@@ -60,13 +61,14 @@ public class Board {
         board[x][y] = 'X';
     }
 
-    private void getNearbyMines() {
+    private void setNearbyMines() {
         for (int i = 0; i < lenght; i++) {
             for (int j = 0; j < lenght; j++) {
+                int countMines = getCountMinesNearbyPos(new int[]{i, j});
 
-                System.out.printf("{%d, %d} => ",i, j);
-                System.out.println(getNeighbors(new int[]{j, i}));
-
+                if (countMines > 0 && board[i][j] != 'X') {
+                    board[i][j] = Character.forDigit(countMines, 10);
+                }
             }
         }
     }
@@ -124,10 +126,7 @@ public class Board {
         return (int) (Math.random() * lenght);
     }
 
-
-
     public Set<String> getNeighbors(int[] pos) {
-
         Set<String> neighbors = new HashSet<>();
 
         int x = pos[0];
@@ -154,4 +153,12 @@ public class Board {
         return neighbors;
     }
 
+    public String boardToString() {
+        StringBuilder sb = new StringBuilder();
+        for (char[] row : board) {
+            sb.append(new String(row)).append("\n");
+        }
+
+        return sb.toString().trim();
+    }
 }
