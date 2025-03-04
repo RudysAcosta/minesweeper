@@ -11,6 +11,7 @@ public class Main {
 
         int countMines = inputHandler.get("How many mines do you want on the field?");
         board.setCountMines(countMines);
+        board.fill();
 
         Print.board(board);
     }
