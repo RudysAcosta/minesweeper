@@ -1,27 +1,48 @@
 package minesweeper.io;
 
+import minesweeper.model.Coordinate;
+
 import java.util.Scanner;
 
 public class InputHandler {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    public int get(String promp) {
-        System.out.print(promp);
+    public InputHandler(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
-        int num;
+    public InputHandler() {
+        this(new Scanner(System.in));
+    }
+
+    public int get(String prompt) {
+        System.out.print(prompt);
         while (true) {
-            String line = scanner.nextLine().trim();
-
-            try {
-                num = Integer.parseInt(line);
-            } catch (Exception e) {
-                System.out.print("\ntry again with number. ");
-                continue;
+            if (!scanner.hasNextLine()) {
+                throw new IllegalStateException("No input available");
             }
 
-            break;
+            String line = scanner.nextLine().trim();
+            try {
+                return Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.out.print("\nTry again with a number: ");
+            }
         }
-        return num;
+    }
+
+    public Coordinate getCoordinate() {
+        System.out.print("Set/delete mines marks (x and y coordinates): ");
+
+        while (true) {
+            String line = scanner.nextLine().trim().replace(' ', '-');
+
+            try {
+                return new Coordinate(line);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input. Please enter valid coordinates (x-y).");
+            }
+        }
     }
 
 }
