@@ -7,6 +7,10 @@ public class Coordinate {
     private int y;
 
     public Coordinate(int x, int y) {
+        if (x < 0 || y < 0) {
+            throw new IllegalArgumentException("The coordinates must be valid integer numbers.");
+        }
+
         this.x = x;
         this.y = y;
     }
