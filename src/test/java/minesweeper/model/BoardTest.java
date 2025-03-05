@@ -1,6 +1,5 @@
 package minesweeper.model;
 
-import minesweeper.output.Print;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,19 +67,20 @@ public class BoardTest {
     @Test
     void tesStartBoard() {
         String expectedBoard =
-                "1X1..12X1.\n" +
-                "111112X21.\n" +
-                "...2X421..\n" +
-                "...2XX2...\n" +
-                "...13X2...\n" +
-                "....111...\n" +
-                "......111.\n" +
-                "....112X21\n" +
-                "....1X22X1\n" +
-                "....111111";
+                "\u00A0|123456789|\n" +
+                "-|---------|\n" +
+                "1|1X1..12X1|\n" +
+                "2|111112X21|\n" +
+                "3|...2X421.|\n" +
+                "4|...2XX2..|\n" +
+                "5|...13X2..|\n" +
+                "6|....111..|\n" +
+                "7|......111|\n" +
+                "8|....112X2|\n" +
+                "9|....1X22X|\n" +
+                "-|---------|";
 
         assertEquals(expectedBoard, board.boardToString());
-
     }
 
 }

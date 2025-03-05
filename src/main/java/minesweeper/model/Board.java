@@ -9,12 +9,12 @@ public class Board {
 
     private char[][] board;
 
-    private final int lenght = 10;
+    private final int length = 9;
 
     private int countMines;
 
     public Board() {
-        board = new char[lenght][lenght];
+        board = new char[length][length];
         fillDefault();
     }
 
@@ -25,7 +25,7 @@ public class Board {
     }
 
     public int getSize() {
-        return lenght;
+        return length;
     }
 
     public void setCountMines(int countMines) {
@@ -37,8 +37,8 @@ public class Board {
     }
 
     private void fillDefault() {
-        for (int i = 0; i < lenght; i++) {
-            for (int j = 0; j < lenght; j++) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
                 board[i][j] = '.';
             }
         }
@@ -54,16 +54,16 @@ public class Board {
         int x = pos[1];
         int y = pos[0];
 
-        if (x < 0 || x >= lenght || y < 0 || y >= lenght ) {
-            throw new IllegalArgumentException("The position is not in the range 0 to " + lenght);
+        if (x < 0 || x >= length || y < 0 || y >= length ) {
+            throw new IllegalArgumentException("The position is not in the range 0 to " + length);
         }
 
         board[x][y] = 'X';
     }
 
     private void setNearbyMines() {
-        for (int i = 0; i < lenght; i++) {
-            for (int j = 0; j < lenght; j++) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
                 int countMines = getCountMinesNearbyPos(new int[]{i, j});
 
                 if (countMines > 0 && board[i][j] != 'X') {
@@ -123,7 +123,7 @@ public class Board {
     }
 
     private int getRandom() {
-        return (int) (Math.random() * lenght);
+        return (int) (Math.random() * length);
     }
 
     public Set<String> getNeighbors(int[] pos) {
@@ -143,8 +143,8 @@ public class Board {
             int newX = x + dir[0];
             int newY = y + dir[1];
 
-            if (newX < 0 || newX == lenght) continue;
-            if (newY < 0 || newY == lenght) continue;
+            if (newX < 0 || newX == length) continue;
+            if (newY < 0 || newY == length) continue;
 
             neighbors.add(newX+"-"+newY);
 
@@ -155,10 +155,29 @@ public class Board {
 
     public String boardToString() {
         StringBuilder sb = new StringBuilder();
-        for (char[] row : board) {
-            sb.append(new String(row)).append("\n");
+
+        sb.append(boardTop());
+        for (int i = 0; i < length; i++) {
+            sb.append((i + 1) + "|").append(new String(board[i])).append("|\n");
         }
+        sb.append(boardBottom());
 
         return sb.toString().trim();
+    }
+
+    private String boardTop() {
+        StringBuilder line = new StringBuilder("\u00A0|");
+
+        for(int i = 1; i <= length; i++) {
+            line.append(i);
+        }
+        line.append("|\n");
+        line.append("-|---------|\n");
+
+        return line.toString();
+    }
+
+    private String boardBottom() {
+        return "-|---------|";
     }
 }
