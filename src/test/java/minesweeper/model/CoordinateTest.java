@@ -20,6 +20,8 @@ public class CoordinateTest {
     @Test
     void testCoordinateIsNonNegativeInteger() {
         assertThrows(IllegalArgumentException.class, () -> new Coordinate(-2, 4));
+        assertThrows(IllegalArgumentException.class, () -> new Coordinate(2, Field.length + 1));
         assertThrows(IllegalArgumentException.class, () -> new Coordinate("-2-4"));
     }
+
 }
