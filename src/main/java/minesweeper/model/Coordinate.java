@@ -1,5 +1,8 @@
 package minesweeper.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Coordinate {
 
     private int x;
@@ -44,6 +47,32 @@ public class Coordinate {
 
     public int getY() {
         return y;
+    }
+
+    public Set<String> getNeighbors() {
+        Set<String> neighbors = new HashSet<>();
+
+        int x = getX();
+        int y = getY();
+
+        int[][] directions = {
+                {1, 0},  {-1, 0},
+                {0, 1},  {0, -1},
+                {1, 1},  {-1, -1},
+                {1, -1}, {-1, 1}
+        };
+
+        for (int[] dir : directions) {
+            int newX = x + dir[0];
+            int newY = y + dir[1];
+
+            if (newX < 0 || newX == Field.length) continue;
+            if (newY < 0 || newY == Field.length) continue;
+
+            neighbors.add(newX+"-"+newY);
+        }
+
+        return neighbors;
     }
 
 }
