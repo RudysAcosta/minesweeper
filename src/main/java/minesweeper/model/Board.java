@@ -11,17 +11,25 @@ public class Board {
 
     private final int length = 9;
 
+    private Set<String> mines;
+
     private int countMines;
 
-    public Board() {
+    {
         board = new char[length][length];
+        mines = new HashSet<>();
+    }
+
+    public Board() {
         fillDefault();
     }
 
     public void fill() {
-        randomMines();
         setNearbyMines();
-//        getNearbyMines();
+    }
+
+    public Set<String> getMines() {
+        return mines;
     }
 
     public int getSize() {
@@ -30,6 +38,7 @@ public class Board {
 
     public void setCountMines(int countMines) {
         this.countMines = countMines;
+        randomMines();
     }
 
     public char[][] getBoard() {
@@ -112,11 +121,13 @@ public class Board {
 
     private void randomMines() {
         for (int i = 0; i < countMines;) {
-            int pos1 = getRandom();
-            int pos2 = getRandom();
+            int x = getRandom();
+            int y = getRandom();
 
-            if (board[pos1][pos2] == '.') {
-                board[pos1][pos2] = 'X';
+            String pos = x + "-" + y;
+
+            if (!mines.contains(pos)) {
+                mines.add(pos);
                 i++;
             }
         }

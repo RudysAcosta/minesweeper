@@ -83,4 +83,16 @@ public class BoardTest {
         assertEquals(expectedBoard, board.boardToString());
     }
 
+    @Test
+    void testRandomMines() {
+        Board boardTest = new Board();
+        boardTest.setCountMines(5);
+
+        Board boardTest2 = new Board();
+        boardTest2.setCountMines(10);
+
+        assertEquals(5, boardTest.getMines().size());
+        assertEquals(10, boardTest2.getMines().size());
+    }
+
 }
