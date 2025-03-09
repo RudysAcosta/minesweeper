@@ -1,6 +1,7 @@
 package minesweeper.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Coordinate {
@@ -73,6 +74,25 @@ public class Coordinate {
         }
 
         return neighbors;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Coordinate that  = (Coordinate) obj;
+        return this.x == that.getX() && this.y == that.getY();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "("+ x + "," + y + ")";
     }
 
 }

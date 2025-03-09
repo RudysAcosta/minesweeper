@@ -1,5 +1,7 @@
 package minesweeper.model;
 
+import minesweeper.exceptions.MaxMinesReachedException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class Field {
 
     {
         field = new char[length][length];
+        mines = new HashSet<>();
     }
 
     public Field() {
@@ -30,7 +33,15 @@ public class Field {
     }
 
     public void setMine(Coordinate coordinate) {
+        if (mines.size() == countMines) {
+            throw new MaxMinesReachedException("No more mines can be placed. Limit reached.");
+        }
+
         mines.add(coordinate);
+    }
+
+    public void setCountMines(int countMines) {
+        this.countMines = countMines;
     }
 
     public Set<Coordinate> getMines() {

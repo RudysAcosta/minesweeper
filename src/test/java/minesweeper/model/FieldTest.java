@@ -32,7 +32,21 @@ public class FieldTest {
         assertEquals(expectedBoard, field.toString());
     }
 
+    @Test
+    void testSetMine() {
+        field.setCountMines(5);
+        field.setMine(new Coordinate(0,0));
 
+        assertEquals(1, field.getMines().size());
+
+        field.setMine(new Coordinate(1,0));
+        field.setMine(new Coordinate(2,0));
+
+        assertEquals(3, field.getMines().size());
+
+        field.setMine(new Coordinate(2,0));
+        assertEquals(3, field.getMines().size());
+    }
 
 
 }
