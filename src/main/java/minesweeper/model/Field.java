@@ -53,9 +53,7 @@ public class Field {
     }
 
     int getCountMinesNearby(Coordinate coordinate) {
-
         int count = 0;
-
         Set<Coordinate> neighbors = coordinate.getNeighbors();
 
         for (Coordinate neighbor : neighbors) {
@@ -63,7 +61,6 @@ public class Field {
                 count += 1;
             }
         }
-
         return count;
     }
 
@@ -72,13 +69,25 @@ public class Field {
 
         sb.append(boardTop());
         for (int i = 0; i < length; i++) {
-            sb.append((i + 1) + "|")
-                    .append(new String(field[i]))
-                    .append("|\n");
+            sb.append((i + 1) + "|");
+            for (int j = 0; j < length; j++) {
+                sb.append(displayCell(new Coordinate(j, i)));
+            }
+            sb.append("|\n");
         }
         sb.append(boardBottom());
 
         return sb.toString().trim();
+    }
+
+    private String displayCell(Coordinate coordinate) {
+        if (mines.contains(coordinate)) {
+            return ".";
+        }
+
+        int minesNearby = getCountMinesNearby(coordinate);
+
+        return (minesNearby > 0) ? "" + minesNearby : ".";
     }
 
     private String boardTop() {

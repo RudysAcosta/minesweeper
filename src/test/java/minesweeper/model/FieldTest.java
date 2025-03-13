@@ -89,8 +89,9 @@ public class FieldTest {
         assertEquals(expectedCount, actualCount);
     }
 
-//    @Test
+    @Test
     void testCorrectMinefieldStringFormat() {
+        setMines();
         String expectedBoard = "\u00A0|123456789|\n"+
                 "-|---------|\n" +
                 "1|1.1......|\n" +
@@ -103,17 +104,6 @@ public class FieldTest {
                 "8|.1111123.|\n" +
                 "9|.1.11.12.|\n" +
                 "-|---------|";
-
-        field.setMine(new Coordinate(1,0));
-        field.setMine(new Coordinate(5,3));
-        field.setMine(new Coordinate(2,4));
-        field.setMine(new Coordinate(7,3));
-        field.setMine(new Coordinate(4,2));
-        field.setMine(new Coordinate(8,7));
-        field.setMine(new Coordinate(5,8));
-        field.setMine(new Coordinate(7,6));
-        field.setMine(new Coordinate(2,8));
-        field.setMine(new Coordinate(8,8));
 
         assertEquals(expectedBoard, field.toString());
     }
