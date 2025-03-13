@@ -50,8 +50,8 @@ public class Coordinate {
         return y;
     }
 
-    public Set<String> getNeighbors() {
-        Set<String> neighbors = new HashSet<>();
+    public Set<Coordinate> getNeighbors() {
+        Set<Coordinate> neighbors = new HashSet<>();
 
         int x = getX();
         int y = getY();
@@ -70,7 +70,7 @@ public class Coordinate {
             if (newX < 0 || newX == Field.length) continue;
             if (newY < 0 || newY == Field.length) continue;
 
-            neighbors.add(newX+"-"+newY);
+            neighbors.add(new Coordinate(newX, newY));
         }
 
         return neighbors;

@@ -40,7 +40,7 @@ public class Field {
         mines.add(coordinate);
     }
 
-    public void setCountMines(int countMines) {
+    void setCountMines(int countMines) {
         this.countMines = countMines;
     }
 
@@ -50,6 +50,21 @@ public class Field {
 
     public char[][] getField() {
         return this.field;
+    }
+
+    int getCountMinesNearby(Coordinate coordinate) {
+
+        int count = 0;
+
+        Set<Coordinate> neighbors = coordinate.getNeighbors();
+
+        for (Coordinate neighbor : neighbors) {
+            if (mines.contains(neighbor)) {
+                count += 1;
+            }
+        }
+
+        return count;
     }
 
     public String toString() {
