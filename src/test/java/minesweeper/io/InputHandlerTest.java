@@ -1,6 +1,7 @@
 package minesweeper.io;
 
 import minesweeper.model.Coordinate;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -10,10 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class InputHandlerTest {
 
+    Scanner testScanner;
+
+    @AfterEach
+    void setUp() {
+        testScanner.close();
+    }
+
     @Test
     void testGetValidNumber() {
         String input = "5\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         InputHandler inputHandler = new InputHandler(testScanner);
 
         int result = inputHandler.get("Enter a number: ");
@@ -23,7 +31,7 @@ public class InputHandlerTest {
     @Test
     void testGetCoordinateValidInput() {
         String input = "3 4\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         InputHandler inputHandler = new InputHandler(testScanner);
 
         Coordinate coord = inputHandler.getCoordinate();
@@ -34,7 +42,7 @@ public class InputHandlerTest {
     @Test
     void testGetCoordinateInvalidThenValid() {
         String input = "invalid\n2 5\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         InputHandler inputHandler = new InputHandler(testScanner);
 
         Coordinate coord = inputHandler.getCoordinate();
@@ -45,7 +53,7 @@ public class InputHandlerTest {
     @Test
     void testGetCoordinateWithSpacesInsteadOfDashes() {
         String input = "7 8\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         InputHandler inputHandler = new InputHandler(testScanner);
 
         Coordinate coord = inputHandler.getCoordinate();
@@ -56,7 +64,7 @@ public class InputHandlerTest {
     @Test
     void testGetCoordinateWithDashes() {
         String input = "5-7\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         InputHandler inputHandler = new InputHandler(testScanner);
 
         Coordinate coord = inputHandler.getCoordinate();
@@ -67,12 +75,12 @@ public class InputHandlerTest {
     @Test
     void testGetCoordinateMultipleInvalidBeforeValid() {
         String input = "a-b\n-5 6\ninvalid\n3 2\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
+        testScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
         InputHandler inputHandler = new InputHandler(testScanner);
 
-        Coordinate coord = inputHandler.getCoordinate();
-        assertEquals(3, coord.getX());
-        assertEquals(2, coord.getY());
+        Coordinate coordinate = inputHandler.getCoordinate();
+        assertEquals(3, coordinate.getX());
+        assertEquals(2, coordinate.getY());
     }
 }
 
