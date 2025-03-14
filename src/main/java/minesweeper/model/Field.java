@@ -11,6 +11,8 @@ public class Field {
 
     private Set<Coordinate> mines;
 
+    private Set<Coordinate> markCells;
+
     private int countMines;
 
     private char[][] field;
@@ -18,6 +20,7 @@ public class Field {
     {
         field = new char[length][length];
         mines = new HashSet<>();
+        markCells = new HashSet<>();
     }
 
     public Field() {
@@ -61,7 +64,7 @@ public class Field {
         }
     }
 
-    int getCountMinesNearby(Coordinate coordinate) {
+    public int getCountMinesNearby(Coordinate coordinate) {
         int count = 0;
         Set<Coordinate> neighbors = coordinate.getNeighbors();
 
@@ -71,6 +74,18 @@ public class Field {
             }
         }
         return count;
+    }
+
+    public void toggleMarkCell(Coordinate coordinate) {
+        if (markCells.contains(coordinate)) {
+            markCells.remove(coordinate);
+        } else {
+            markCells.add(coordinate);
+        }
+    }
+
+    public boolean hasUserWon() {
+        return markCells.equals(mines);
     }
 
     public String toString() {
@@ -90,6 +105,10 @@ public class Field {
     }
 
     private String displayCell(Coordinate coordinate) {
+        if (markCells.contains(coordinate)) {
+            return "*";
+        }
+
         if (mines.contains(coordinate)) {
             return ".";
         }

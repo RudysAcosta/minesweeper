@@ -2,7 +2,6 @@ package minesweeper;
 
 import minesweeper.io.InputHandler;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;

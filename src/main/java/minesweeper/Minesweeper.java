@@ -1,6 +1,7 @@
 package minesweeper;
 
 import minesweeper.io.InputHandler;
+import minesweeper.model.Coordinate;
 import minesweeper.model.Field;
 
 import java.util.Scanner;
@@ -14,10 +15,6 @@ public class Minesweeper {
         inputHandler = new InputHandler(new Scanner(System.in));
     }
 
-    public Minesweeper() {
-
-    }
-
     public void start() {
         int countMines = inputHandler.get("How many mines do you want on the field?");
 
@@ -26,8 +23,33 @@ public class Minesweeper {
             field.setRandomMines();
             System.out.println(field.toString());
 
+            while(!field.hasUserWon()) {
+                markMines();
+                System.out.println();
+                System.out.println(field.toString());
+            }
+
+            System.out.println("Congratulations! You found all the mines!");
+
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
+        }
+
+    }
+
+    private void markMines() {
+
+        while (true) {
+            Coordinate coordinate = inputHandler.getCoordinate();
+            int minesNearCoordinate = field.getCountMinesNearby(coordinate);
+
+            if (minesNearCoordinate > 0) {
+                System.out.println("There is a number here!");
+                continue;
+            }
+
+            field.toggleMarkCell(coordinate);
+            break;
         }
 
     }

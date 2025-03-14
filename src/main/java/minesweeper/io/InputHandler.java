@@ -39,10 +39,16 @@ public class InputHandler {
         System.out.print("Set/delete mines marks (x and y coordinates): ");
 
         while (true) {
-            String line = scanner.nextLine().trim().replace(' ', '-');
+            String line = scanner.nextLine().trim();
 
             try {
-                return new Coordinate(line);
+                String[] coordinate = line.split(" ");
+
+                // We less 1 become we work with index 0
+                int x = Integer.parseInt(coordinate[0]) - 1;
+                int y = Integer.parseInt(coordinate[1]) - 1;
+
+                return new Coordinate(x, y);
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid input. Please enter valid coordinates (x-y).");
             }
