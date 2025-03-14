@@ -13,6 +13,8 @@ public class Field {
 
     private Set<Coordinate> markCells;
 
+    private Set<Coordinate> visibleCells;
+
     private int countMines;
 
     private char[][] field;
@@ -21,6 +23,7 @@ public class Field {
         field = new char[length][length];
         mines = new HashSet<>();
         markCells = new HashSet<>();
+        visibleCells = new HashSet<>();
     }
 
     public Field() {
@@ -113,13 +116,13 @@ public class Field {
             return "*";
         }
 
-        if (mines.contains(coordinate)) {
-            return ".";
-        }
-
         int minesNearby = getCountMinesNearby(coordinate);
 
-        return (minesNearby > 0) ? "" + minesNearby : ".";
+        if (visibleCells.contains(coordinate)) {
+            return (minesNearby > 0 ) ? "" + minesNearby : "/";
+        }
+
+        return ".";
     }
 
     private String boardTop() {
