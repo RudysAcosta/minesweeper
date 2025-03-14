@@ -2,6 +2,7 @@ package minesweeper.io;
 
 import minesweeper.model.Coordinate;
 
+import java.security.InvalidParameterException;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -17,18 +18,21 @@ public class InputHandler {
 
     public int get(String prompt) {
         System.out.print(prompt);
-        while (true) {
-            if (!scanner.hasNextLine()) {
-                throw new IllegalStateException("No input available");
-            }
 
+        while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
             try {
-                return Integer.parseInt(line);
-            } catch (NumberFormatException e) {
-                System.out.print("\nTry again with a number: ");
+                int number = Integer.parseInt(line);
+                if (number >= 1) {
+                    return number;
+                }
+            } catch (NumberFormatException ignored) {
+                System.out.print(ignored.getMessage());
             }
+            System.out.print("\nTry again with a number: ");
         }
+
+        throw new IllegalStateException("No input available");
     }
 
     public Coordinate getCoordinate() {

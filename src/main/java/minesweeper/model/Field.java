@@ -40,7 +40,7 @@ public class Field {
         mines.add(coordinate);
     }
 
-    void setCountMines(int countMines) {
+    public void setCountMines(int countMines) {
         this.countMines = countMines;
     }
 
@@ -50,6 +50,15 @@ public class Field {
 
     public char[][] getField() {
         return this.field;
+    }
+
+    public void setRandomMines() {
+        while(mines.size() < countMines) {
+            int x = (int)(Math.random() * length);
+            int y = (int)(Math.random() * length);
+
+            mines.add(new Coordinate(x, y));
+        }
     }
 
     int getCountMinesNearby(Coordinate coordinate) {
