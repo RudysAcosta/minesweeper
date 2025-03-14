@@ -55,6 +55,10 @@ public class Field {
         return this.field;
     }
 
+    public boolean isAMine(Coordinate coordinate) {
+        return mines.contains(coordinate);
+    }
+
     public void setRandomMines() {
         while(mines.size() < countMines) {
             int x = (int)(Math.random() * length);

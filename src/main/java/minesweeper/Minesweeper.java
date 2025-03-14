@@ -38,16 +38,14 @@ public class Minesweeper {
     }
 
     private void markMines() {
-
         while (true) {
             Coordinate coordinate = inputHandler.getCoordinate();
             int minesNearCoordinate = field.getCountMinesNearby(coordinate);
 
-            if (minesNearCoordinate > 0) {
+            if (minesNearCoordinate > 0 && !field.isAMine(coordinate)) {
                 System.out.println("There is a number here!");
                 continue;
             }
-
             field.toggleMarkCell(coordinate);
             break;
         }
