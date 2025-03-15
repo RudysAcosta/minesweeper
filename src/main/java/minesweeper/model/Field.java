@@ -37,7 +37,37 @@ public class Field {
         if (moveType.equals("mine")) {
             toggleMarkCell(coordinate);
         } else {
+            if (!mines.contains(coordinate)) {
+                revealCell(coordinate);
+            }
+        }
+    }
 
+    private void revealCell(Coordinate coordinate) {
+        Set<Coordinate> neighbors = coordinate.getNeighbors();
+        Set<Coordinate> toMarkCell = new HashSet<>();
+
+        for (Coordinate neighborCoordinate : neighbors) {
+            // if the cell is a mine continue for and ignore this cell
+            if(mines.contains(neighborCoordinate)) {
+                continue;
+            }
+
+            // Just add to markCell if it doesn't exist in visibleCells.
+            if(!visibleCells.contains(neighborCoordinate)) {
+                toMarkCell.add(neighborCoordinate);
+            }
+        }
+
+        for (Coordinate cellCoordinate: toMarkCell ) {
+            visibleCells.add(cellCoordinate);
+
+            int minesNearby =  getCountMinesNearby(cellCoordinate);
+
+            if(minesNearby == 0) {
+                // if the cell don't have a mine near, continue reveal
+                revealCell(cellCoordinate);
+            }
         }
     }
 
