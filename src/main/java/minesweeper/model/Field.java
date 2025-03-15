@@ -3,6 +3,7 @@ package minesweeper.model;
 import minesweeper.exceptions.MaxMinesReachedException;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Field {
@@ -48,12 +49,16 @@ public class Field {
                     userLoss = true;
                 }
             }
+
+            checkMarkCell();
         }
     }
 
     private void revealCell(Coordinate coordinate) {
         Set<Coordinate> neighbors = coordinate.getNeighbors();
         Set<Coordinate> toMarkCell = new HashSet<>();
+
+        visibleCells.add(coordinate);
 
         for (Coordinate neighborCoordinate : neighbors) {
             // if the cell is a mine continue for and ignore this cell
@@ -68,6 +73,12 @@ public class Field {
         }
 
         for (Coordinate cellCoordinate: toMarkCell ) {
+
+            // Avoid reveal cell marked
+            if (!mines.contains(cellCoordinate)) {
+                markCells.remove(cellCoordinate);
+            }
+
             visibleCells.add(cellCoordinate);
 
             int minesNearby =  getCountMinesNearby(cellCoordinate);
@@ -146,6 +157,34 @@ public class Field {
 
     public boolean hasUserLoss() {
         return userLoss;
+    }
+
+    private void checkMarkCell() {
+        Iterator<Coordinate> iterator = markCells.iterator();
+
+        while (iterator.hasNext()) {
+            Coordinate cell = iterator.next();
+            Set<Coordinate> neighbors = cell.getNeighbors();
+
+            if (visibleCells.containsAll(neighbors) && !allNeighborsAreNumber(neighbors)) {
+                iterator.remove();
+                visibleCells.add(cell);
+            }
+        }
+    }
+
+    private boolean allNeighborsAreNumber(Set<Coordinate> neighbors) {
+        for(Coordinate neighbor: neighbors) {
+            if (mines.contains(neighbor)) {
+                continue;
+            }
+
+            if (getCountMinesNearby(neighbor) == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public String toString() {

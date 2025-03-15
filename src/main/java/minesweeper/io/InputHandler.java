@@ -3,10 +3,8 @@ package minesweeper.io;
 import minesweeper.model.Action;
 import minesweeper.model.Coordinate;
 
-import java.security.InvalidParameterException;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Set;
 
 public class InputHandler {
     private final Scanner scanner;
