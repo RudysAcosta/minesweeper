@@ -24,12 +24,10 @@ public class Minesweeper {
             field.setRandomMines();
             System.out.println(field.toString());
 
-
-
             while(!field.hasUserWon()) {
-                markMines();
-//                System.out.println();
-//                System.out.println(field.toString());
+                playTurn();
+                System.out.println();
+                System.out.println(field.toString());
             }
 //
 //            System.out.println("Congratulations! You found all the mines!");
@@ -40,10 +38,14 @@ public class Minesweeper {
 
     }
 
-    private void markMines() {
-        while (true) {
-            Action action = inputHandler.input();
-            System.out.println(action);
+    private void playTurn() {
+        Action action = inputHandler.getAction();
+        field.processAction(action);
+
+//        while (true) {
+//
+//
+//            break;
 //            Coordinate coordinate = new Coordinate(action[0], action[1]);
 //            int minesNearCoordinate = field.getCountMinesNearby(coordinate);
 //
@@ -53,7 +55,7 @@ public class Minesweeper {
 //            }
 //            field.toggleMarkCell(coordinate);
 //            break;
-        }
+//        }
 
     }
 

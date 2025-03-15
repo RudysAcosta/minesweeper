@@ -58,7 +58,7 @@ public class InputHandler {
         }
     }
 
-    public Action input() {
+    public Action getAction() {
         System.out.print("Set/unset mines marks or claim a cell as free: ");
 
         while(true) {

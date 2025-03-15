@@ -2,17 +2,17 @@ package minesweeper.model;
 
 public class Action {
 
-    private String action;
+    private String moveType;
 
     private Coordinate coordinate;
 
-    public Action(String action, Coordinate coordinate) {
-        this.action = action;
+    public Action(String moveType, Coordinate coordinate) {
+        this.moveType = moveType;
         this.coordinate = coordinate;
     }
 
-    public String getAction() {
-        return action;
+    public String getMoveType() {
+        return moveType;
     }
 
     public Coordinate getCoordinate() {
@@ -21,6 +21,6 @@ public class Action {
 
     @Override
     public String toString() {
-        return action + "=>" + coordinate;
+        return moveType + "=>" + coordinate;
     }
 }

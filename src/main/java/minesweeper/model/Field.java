@@ -30,6 +30,17 @@ public class Field {
         fillDefault();
     }
 
+    public void processAction(Action action) {
+        Coordinate coordinate = action.getCoordinate();
+        String moveType = action.getMoveType();
+
+        if (moveType.equals("mine")) {
+            toggleMarkCell(coordinate);
+        } else {
+
+        }
+    }
+
     private void fillDefault() {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
