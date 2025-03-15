@@ -76,6 +76,10 @@ public class Coordinate {
         return neighbors;
     }
 
+    public static boolean validateCoordinate(int x, int y) {
+        return !(x < 0 || x >= Field.length || y < 0 || y >= Field.length);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

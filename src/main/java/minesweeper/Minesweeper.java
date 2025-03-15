@@ -1,6 +1,7 @@
 package minesweeper;
 
 import minesweeper.io.InputHandler;
+import minesweeper.model.Action;
 import minesweeper.model.Coordinate;
 import minesweeper.model.Field;
 
@@ -23,13 +24,15 @@ public class Minesweeper {
             field.setRandomMines();
             System.out.println(field.toString());
 
+
+
             while(!field.hasUserWon()) {
                 markMines();
-                System.out.println();
-                System.out.println(field.toString());
+//                System.out.println();
+//                System.out.println(field.toString());
             }
-
-            System.out.println("Congratulations! You found all the mines!");
+//
+//            System.out.println("Congratulations! You found all the mines!");
 
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -39,15 +42,17 @@ public class Minesweeper {
 
     private void markMines() {
         while (true) {
-            Coordinate coordinate = inputHandler.getCoordinate();
-            int minesNearCoordinate = field.getCountMinesNearby(coordinate);
-
-            if (minesNearCoordinate > 0 && !field.isAMine(coordinate)) {
-                System.out.println("There is a number here!");
-                continue;
-            }
-            field.toggleMarkCell(coordinate);
-            break;
+            Action action = inputHandler.input();
+            System.out.println(action);
+//            Coordinate coordinate = new Coordinate(action[0], action[1]);
+//            int minesNearCoordinate = field.getCountMinesNearby(coordinate);
+//
+//            if (minesNearCoordinate > 0 && !field.isAMine(coordinate)) {
+//                System.out.println("There is a number here!");
+//                continue;
+//            }
+//            field.toggleMarkCell(coordinate);
+//            break;
         }
 
     }
