@@ -17,6 +17,8 @@ public class Field {
 
     private int countMines;
 
+    private boolean userLoss = false;
+
     private char[][] field;
 
     {
@@ -37,8 +39,14 @@ public class Field {
         if (moveType.equals("mine")) {
             toggleMarkCell(coordinate);
         } else {
-            if (!mines.contains(coordinate)) {
-                revealCell(coordinate);
+            if (markCells.contains(coordinate)) {
+                System.out.println("This cell is mark with flag.");
+            } else {
+                if (!mines.contains(coordinate)) {
+                    revealCell(coordinate);
+                } else {
+                    userLoss = true;
+                }
             }
         }
     }
@@ -136,6 +144,10 @@ public class Field {
         return markCells.equals(mines);
     }
 
+    public boolean hasUserLoss() {
+        return userLoss;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
@@ -153,6 +165,10 @@ public class Field {
     }
 
     private String displayCell(Coordinate coordinate) {
+        if (userLoss && mines.contains(coordinate)) {
+            return "X";
+        }
+
         if (markCells.contains(coordinate)) {
             return "*";
         }

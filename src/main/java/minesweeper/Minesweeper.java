@@ -2,7 +2,6 @@ package minesweeper;
 
 import minesweeper.io.InputHandler;
 import minesweeper.model.Action;
-import minesweeper.model.Coordinate;
 import minesweeper.model.Field;
 
 import java.util.Scanner;
@@ -24,14 +23,19 @@ public class Minesweeper {
             field.setRandomMines();
             System.out.println(field.toString());
 
-            while(!field.hasUserWon()) {
+            while(!field.hasUserWon() && !field.hasUserLoss()) {
                 playTurn();
                 System.out.println();
                 System.out.println(field.toString());
             }
-//
-//            System.out.println("Congratulations! You found all the mines!");
 
+            if (field.hasUserLoss()) {
+                System.out.println("You stepped on a mine and failed!");
+            }
+
+            if (field.hasUserWon()) {
+                System.out.println("Congratulations! You found all the mines!");
+            }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
@@ -41,22 +45,6 @@ public class Minesweeper {
     private void playTurn() {
         Action action = inputHandler.getAction();
         field.processAction(action);
-
-//        while (true) {
-//
-//
-//            break;
-//            Coordinate coordinate = new Coordinate(action[0], action[1]);
-//            int minesNearCoordinate = field.getCountMinesNearby(coordinate);
-//
-//            if (minesNearCoordinate > 0 && !field.isAMine(coordinate)) {
-//                System.out.println("There is a number here!");
-//                continue;
-//            }
-//            field.toggleMarkCell(coordinate);
-//            break;
-//        }
-
     }
 
 }
